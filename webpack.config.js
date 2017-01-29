@@ -1,12 +1,21 @@
 module.exports = {
-  entry: './src/app.js',
+  entry: "./src/app.js",
   output: {
-    path: './dist',
-    filename: 'bundle.js'
+    path: "./dist",
+    filename: "bundle.js"
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.js/,
+        loader: "eslint",
+      }
+    ],
     loaders: [
-      { test: /\.css$/, loader: 'style!css' }
+      {
+        test: /\.scss$/,
+        loaders: ["style-loader", "css-loader", "sass-loader"]
+      }
     ]
   }
 };

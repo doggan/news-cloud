@@ -2,18 +2,30 @@
   "name": "word-comp",
   "version": "1.0.0",
   "description": "A word cloud comparison.",
+  "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "webpack",
-    "dev": "webpack-dev-server --progress --colors"
+    "build": "webpack",
+    "dev": "webpack-dev-server --progress --colors --open"
   },
   "keywords": [
-    "news"
+    "news", "word cloud", "d3"
   ],
   "author": "Shyam Guthikonda",
   "license": "ISC",
   "devDependencies": {
+    "css-loader": "^0.26.1",
+    "eslint": "^3.14.1",
+    "eslint-loader": "^1.6.1",
+    "node-sass": "^4.4.0",
+    "sass-loader": "^4.1.1",
+    "style-loader": "^0.13.1",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"
+  },
+  "dependencies": {
+    "d3": "^4.4.4",
+    "d3.layout.cloud": "^1.2.0",
+    "jquery": "^3.1.1"
   }
 }
