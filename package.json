@@ -1,0 +1,19 @@
+{
+  "name": "word-comp",
+  "version": "1.0.0",
+  "description": "A word cloud comparison.",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack",
+    "dev": "webpack-dev-server --progress --colors"
+  },
+  "keywords": [
+    "news"
+  ],
+  "author": "Shyam Guthikonda",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
