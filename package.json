@@ -9,7 +9,9 @@
     "dev": "webpack-dev-server --progress --colors --open"
   },
   "keywords": [
-    "news", "word cloud", "d3"
+    "news",
+    "word cloud",
+    "d3"
   ],
   "author": "Shyam Guthikonda",
   "license": "ISC",
@@ -17,6 +19,7 @@
     "css-loader": "^0.26.1",
     "eslint": "^3.14.1",
     "eslint-loader": "^1.6.1",
+    "html-webpack-plugin": "^2.26.0",
     "node-sass": "^4.4.0",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",

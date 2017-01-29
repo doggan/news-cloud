@@ -1,0 +1,17 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "impliedStrict": true,
+    },
+  },
+  "rules": {
+    "quotes": 2,
+    "semi": 2,
+    "strict": 2
+  }
+}

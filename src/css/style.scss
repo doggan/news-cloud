@@ -1,0 +1,21 @@
+@import "_normalize.scss";
+@import "_skeleton.scss";
+
+$primary-color: white;
+
+body {
+  background: $primary-color;
+}
+
+// .contents {
+//   // float: left;
+//   // padding: 10px;
+// }
+
+.source {
+  text-align: center;
+}
+
+// .vis {
+//   // border: 2px solid black;
+// }
