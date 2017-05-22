@@ -25,10 +25,10 @@ if (!String.prototype.format) {
   };
 }
 
-const API_KEY = "6064fa30587341728b18da63ce49d402";
-function getNews(source) {
-  return "https://newsapi.org/v1/articles?source={0}&sortBy=top&apiKey={1}"
-    .format(source, API_KEY);
+function getNewsUri(source) {
+  const COUNT = 10;
+  return "http://localhost:5000/api/news?source={0}&count={1}"
+    .format(source, COUNT);
 }
 
 /**
@@ -41,8 +41,10 @@ function processText(text) {
 
   // Strip punctuation.
   text = text
-    .replace(/[.,\/!$%\^&\*;:{}=_`~()]/g, "")
-    .replace("'s ", " ")
+    .replace(/[.,\/!?$%\^&\*;:{}=_`~()]/g, "")
+    .replace(/(\r\n|\n|\r)/gm, "")
+    .replace(/'s/g, "")
+    .replace(/['"]/g, "")  // Make sure to remove ' after 's.
     .split(" ");
   // Filter and cleanup.
   text = $.map(text, function(val) {
@@ -138,9 +140,9 @@ function buildLayout(wordInfos, containerId) {
 }
 
 function buildCloud(newsSource, containerId) {
-  $.get(getNews(newsSource), function(data) {
+  $.get(getNewsUri(newsSource), function(response) {
     let results = [];
-    $.each(data.articles, function() {
+    $.each(response.data, function() {
       results.push.apply(results, processText(this.title));
       results.push.apply(results, processText(this.description));
     });
@@ -150,10 +152,11 @@ function buildCloud(newsSource, containerId) {
   });
 }
 
-// let eg = "Inside confusion Trump executive order travel ban President Donald Trump declared Pentagon Friday enacting strict measures prevent domestic terror attacks government knew meant Protesters decry Trump immigration policies Protesters gathered cities airports United States Saturday complain President Donald Trump immigration policies protests scheduled Sunday Tech leaders condemn Trump immigrant ban ink barely dry President Trump order ban immigration majority Muslim countries tech companies speaking Judge halts implementation Trump immigration order federal judge granted emergency stay Saturday night citizens Muslim majority countries arrived transit hold valid visas ruling removed decision halts President Donald Trump executive order barring citizens countries entering 90 days Read judge order Trump Travel ban working nicely CNN Video President Donald Trump executive order banning immigrants Muslim majority countries working nicely Syrian Christians turned back airport family Syrian Christian immigrants arrive Philadelphia join relatives long wait President Trump executive order turned Trump immigration ban sends shockwaves President Donald Trump seismic move ban 130 million people United States deny entry refugees reverberated worldwide Saturday chaos confusion rippled airports American law enforcement agencies foreign countries grasp Washington policy Trump fast furious week strategy President Trump overwhelming Washington series provocative executive orders aim fulfill campaign promises mask narrow election win writes Julian Zelizer Sen Chris Murphy scathing tweet President Trump CNN Video Democrat Sen Chris Murphy tweeted image dead Syrian child President Donald Trump issued executive order banning Syrian refugees indefinitely";
-// let wordInfos = buildWordInfos(eg.split(" "));
+// let eg = "Inside 'fear mong' confusion Trump executive order travel ban President Donald Trump declared Pentagon Friday enacting strict measures prevent domestic terror attacks government knew meant Protesters decry Trump immigration policies Protesters gathered cities airports United States Saturday complain President Donald Trump immigration policies protests scheduled Sunday Tech leaders condemn Trump immigrant ban ink barely dry President Trump order ban immigration majority Muslim countries tech companies speaking Judge halts implementation Trump immigration order federal judge granted emergency stay Saturday night citizens Muslim majority countries arrived transit hold valid visas ruling removed decision halts President Donald Trump executive order barring citizens countries entering 90 days Read judge order Trump Travel ban working nicely CNN Video President Donald Trump executive order banning immigrants Muslim majority countries working nicely Syrian Christians turned back airport family Syrian Christian immigrants arrive Philadelphia join relatives long wait President Trump executive order turned Trump immigration ban sends shockwaves President Donald Trump seismic move ban 130 million people United States deny entry refugees reverberated worldwide Saturday chaos confusion rippled airports American law enforcement agencies foreign countries grasp Washington policy Trump fast furious week strategy President Trump overwhelming Washington series provocative executive orders aim fulfill campaign promises mask narrow election win writes Julian Zelizer Sen Chris Murphy scathing tweet President Trump CNN Video Democrat Sen Chris Murphy tweeted image dead Syrian child President Donald Trump issued executive order banning Syrian refugees indefinitely";
+// let wordInfos = buildWordInfos(processText(eg));
 // buildLayout(wordInfos, "1");
 // buildLayout(wordInfos, "2");
 
 buildCloud("cnn", "1");
-buildCloud("cnbc", "2");
+buildCloud("fox", "2");
+// buildCloud("cnbc", "2");
