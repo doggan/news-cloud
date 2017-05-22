@@ -1,7 +1,8 @@
 {
-  "name": "saba",
+  "name": "word-comp-server",
   "version": "1.0.0",
-  "description": "...",
+  "description": "Server component for word-comp app.",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=production node index.js",

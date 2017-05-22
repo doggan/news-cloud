@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "d3": "^4.4.4",
-    "d3.layout.cloud": "^1.2.0",
+    "d3-cloud": "^1.2.0",
     "jquery": "^3.1.1"
   }
 }
