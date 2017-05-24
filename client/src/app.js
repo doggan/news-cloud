@@ -50,7 +50,11 @@ function processText(text) {
   // Filter and cleanup.
   text = $.map(text, function(val) {
     val = val.trim();
-    if (val === "" || $.inArray(val.toLowerCase(), IGNORE_WORDS) !== -1) {
+    if (val === "" ||
+        // Filter ignore words...
+        $.inArray(val.toLowerCase(), IGNORE_WORDS) !== -1 ||
+        // Filter standalone numbers...
+        !isNaN(val)) {
       return null;
     }
     return val;
