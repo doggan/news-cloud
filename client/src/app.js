@@ -96,8 +96,12 @@ function buildWordInfos(words) {
   let counts = getCounts(words);
 
   // Filter duplicates.
+  // Only keep 1 case of the word (i.e. Cool or cool, but not both).
+  let lowerCaseWords = $.map(words, function(val) {
+    return val.toLowerCase();
+  });
   words = words.filter(function(word, pos, self) {
-    return self.indexOf(word) == pos;
+    return lowerCaseWords.indexOf(word.toLowerCase()) == pos;
   });
 
   // TODO: if # of unique words is greater than some threshold,
