@@ -187,7 +187,9 @@ function buildCloud(newsSource, containerId) {
  * Some sources provide more words per entry.
  */
 const QUERY_COUNT = {
-  fox: 20,
+  cnn: 20,
+  fox: 60,
+  cnbc: 40,
 };
 
 buildCloud("cnn", "1");
