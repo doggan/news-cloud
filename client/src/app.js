@@ -2,12 +2,13 @@ require("./css/style.scss");
 
 let $ = require("jquery"),
     d3 = require("d3"),
-    cloud = require("d3-cloud");
+    cloud = require("d3-cloud"),
+    sentiment = require("sentiment");
 
 const IGNORE_WORDS = require("./stop-words");
 
 const MIN_WORD_DISPLAY_SIZE = 10;
-const MAX_WORD_DISPLAY_SIZE = 125;
+const MAX_WORD_DISPLAY_SIZE = 40;
 
 /**
  * String formatting util.
@@ -70,6 +71,31 @@ function getCounts(words) {
 }
 
 /**
+ * A linear interpolator for hexadecimal colors
+ */
+function lerpColor(a, b, t) { 
+  var ah = parseInt(a.replace(/#/g, ""), 16),
+    ar = ah >> 16, ag = ah >> 8 & 0xff, ab = ah & 0xff,
+    bh = parseInt(b.replace(/#/g, ""), 16),
+    br = bh >> 16, bg = bh >> 8 & 0xff, bb = bh & 0xff,
+    rr = ar + t * (br - ar),
+    rg = ag + t * (bg - ag),
+    rb = ab + t * (bb - ab);
+  return "#" + ((1 << 24) + (rr << 16) + (rg << 8) + rb | 0).toString(16).slice(1);
+}
+
+function getWordColor(word) {
+  let score = sentiment(word).score;
+  if (score == 0) {
+    return "#000000";
+  } else if (score < 0) {
+    return lerpColor("#000000", "#ff0000", -score / 5);
+  } else if (score > 0) {
+    return lerpColor("#000000", "#00ff00", score / 5);
+  }
+}
+
+/**
  * Build a word info array, figuring out sizes to display each word
  * based on frequency.
  */
@@ -97,6 +123,7 @@ function buildWordInfos(words) {
     wordInfos.push({
       text: word,
       size: MIN_WORD_DISPLAY_SIZE + (counts[word.toLowerCase()] / maxCount) * sizeRange,
+      color: getWordColor(word),
     });
   });
 
@@ -108,7 +135,7 @@ function buildLayout(wordInfos, containerId) {
 
   let layout = cloud()
     .canvas(function() { return document.createElement("canvas"); })
-    .size([500, 500])
+    .size([300, 275])
     .words(wordInfos)
     .padding(1)
     .font("Impact")
@@ -130,7 +157,7 @@ function buildLayout(wordInfos, containerId) {
       .enter().append("text")
         .style("font-size", function(d) { return d.size + "px"; })
         .style("font-family", "Impact")
-        .style("fill", function(d, i) { return fill(i); })
+        .style("fill", function(d, i) { return d.color; })
         .attr("text-anchor", "middle")
         .attr("transform", function(d) {
           return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
