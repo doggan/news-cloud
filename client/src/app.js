@@ -46,6 +46,7 @@ function processText(text) {
     .replace(/(\r\n|\n|\r)/gm, "")
     .replace(/'s/g, "")
     .replace(/['"]/g, "")  // Make sure to remove ' after 's.
+    .replace(/--/g, "")
     .split(" ");
   // Filter and cleanup.
   text = $.map(text, function(val) {
