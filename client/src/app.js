@@ -45,8 +45,8 @@ function processText(text) {
     .replace(/[.,\/!?$%\^&\*;:{}=_`~()]/g, "")
     .replace(/(\r\n|\n|\r)/gm, "")
     .replace(/'s/g, "")
-    .replace(/['"]/g, "")  // Make sure to remove ' after 's.
-    .replace(/--/g, "")
+    .replace(/['"]/g, "") // Make sure to remove ' after 's.
+    .replace(/\B\-/g, "") // Standalone dashes appearing in some text.
     .split(" ");
   // Filter and cleanup.
   text = $.map(text, function(val) {
