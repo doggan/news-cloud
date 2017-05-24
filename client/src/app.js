@@ -70,28 +70,16 @@ function getCounts(words) {
   }, {});
 }
 
-/**
- * A linear interpolator for hexadecimal colors
- */
-function lerpColor(a, b, t) { 
-  var ah = parseInt(a.replace(/#/g, ""), 16),
-    ar = ah >> 16, ag = ah >> 8 & 0xff, ab = ah & 0xff,
-    bh = parseInt(b.replace(/#/g, ""), 16),
-    br = bh >> 16, bg = bh >> 8 & 0xff, bb = bh & 0xff,
-    rr = ar + t * (br - ar),
-    rg = ag + t * (bg - ag),
-    rb = ab + t * (bb - ab);
-  return "#" + ((1 << 24) + (rr << 16) + (rg << 8) + rb | 0).toString(16).slice(1);
-}
-
 function getWordColor(word) {
   let score = sentiment(word).score;
   if (score == 0) {
-    return "#000000";
-  } else if (score < 0) {
-    return lerpColor("#000000", "#ff0000", -score / 5);
+    return d3.color("rgba(0,0,0,0.25)");
+  }
+  let t = score / 5;
+  if (score < 0) {
+    return d3.interpolateRgb("rgba(230,0,0,.25)", "rgba(230,0,0,1)")(-t);
   } else if (score > 0) {
-    return lerpColor("#000000", "#00ff00", score / 5);
+    return d3.interpolateRgb("rgba(0,190,0,.25)", "rgba(0,190,0,1)")(t);
   }
 }
 
@@ -183,7 +171,8 @@ function buildCloud(newsSource, containerId) {
 // let wordInfos = buildWordInfos(processText(eg));
 // buildLayout(wordInfos, "1");
 // buildLayout(wordInfos, "2");
+// buildLayout(wordInfos, "3");
 
 buildCloud("cnn", "1");
 buildCloud("fox", "2");
-// buildCloud("cnbc", "2");
+buildCloud("cnbc", "3");

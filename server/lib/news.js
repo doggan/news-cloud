@@ -5,6 +5,7 @@ var FeedParser = require("feedparser"),
 var SOURCE_URLS = {
   "cnn": "http://rss.cnn.com/rss/cnn_topstories.rss?format=xml",
   "fox": "http://feeds.foxnews.com/foxnews/latest?format=xml",
+  "cnbc": "http://www.cnbc.com/id/100003114/device/rss/rss.html",
 };
 
 function getNews(source, count, finished, failure) {
