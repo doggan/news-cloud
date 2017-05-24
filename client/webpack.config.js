@@ -1,5 +1,6 @@
 var webpack = require("webpack"),
-    HtmlWebpackPlugin = require("html-webpack-plugin");
+    HtmlWebpackPlugin = require("html-webpack-plugin"),
+    path = require("path");
 
 module.exports = {
   entry: {
@@ -11,25 +12,31 @@ module.exports = {
     ]
   },
   output: {
-    path: "./dist",
+    path: path.resolve(__dirname, "dist"),
     filename: "bundle.js"
   },
   module: {
-    preLoaders: [
+    rules: [
       {
         test: /\.js/,
-        loader: "eslint",
-      }
-    ],
-    loaders: [
+        enforce: "pre",
+        loader: "eslint-loader",
+      },
       {
         test: /\.scss$/,
-        loaders: ["style-loader", "css-loader", "sass-loader"]
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader"
+        ]
       }
     ]
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js"),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "vendor",
+      filename: "vendor.bundle.js"
+    }),
     new HtmlWebpackPlugin({
       template: __dirname + "/src/index.ejs",
     })
