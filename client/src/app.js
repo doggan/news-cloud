@@ -2,7 +2,7 @@ require("./css/style.scss");
 
 let $ = require("jquery"),
     d3 = require("d3"),
-    cloud = require("d3.layout.cloud");
+    cloud = require("d3-cloud");
 
 const IGNORE_WORDS = require("./stop-words");
 

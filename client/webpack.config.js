@@ -6,7 +6,7 @@ module.exports = {
     app: "./src/app.js",
     vendor: [
       "d3",
-      "d3.layout.cloud",
+      "d3-cloud",
       "jquery"
     ]
   },
