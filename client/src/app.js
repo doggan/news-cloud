@@ -27,9 +27,9 @@ if (!String.prototype.format) {
 }
 
 function getNewsUri(source) {
-  const COUNT = 10;
+  let count = source in QUERY_COUNT ? QUERY_COUNT[source] : 10;
   return "http://localhost:5000/api/news?source={0}&count={1}"
-    .format(source, COUNT);
+    .format(source, count);
 }
 
 /**
@@ -177,6 +177,14 @@ function buildCloud(newsSource, containerId) {
 // buildLayout(wordInfos, "1");
 // buildLayout(wordInfos, "2");
 // buildLayout(wordInfos, "3");
+
+/**
+ * Allow overriding the query count for certain news sources.
+ * Some sources provide more words per entry.
+ */
+const QUERY_COUNT = {
+  fox: 20,
+};
 
 buildCloud("cnn", "1");
 buildCloud("fox", "2");
