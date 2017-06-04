@@ -1,7 +1,7 @@
 {
-  "name": "word-comp-server",
+  "name": "news-cloud-server",
   "version": "1.0.0",
-  "description": "Server component for word-comp app.",
+  "description": "Server component for news-cloud app.",
   "private": true,
   "main": "index.js",
   "scripts": {

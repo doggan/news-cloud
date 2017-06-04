@@ -1,7 +1,7 @@
 {
-  "name": "word-comp",
+  "name": "news-cloud",
   "version": "1.0.0",
-  "description": "A word cloud comparison.",
+  "description": "Compare news with word clouds.",
   "private": true,
   "main": "index.js",
   "scripts": {
@@ -11,6 +11,7 @@
   "keywords": [
     "news",
     "word cloud",
+    "bias",
     "d3"
   ],
   "author": "Shyam Guthikonda",
