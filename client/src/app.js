@@ -3,7 +3,8 @@ require("./css/style.scss");
 var $ = require("jquery"),
     d3 = require("d3"),
     cloud = require("d3-cloud"),
-    sentiment = require("sentiment");
+    sentiment = require("sentiment"),
+    Spinner = require("spin.js");
 
 const IGNORE_WORDS = require("./stop-words");
 
@@ -132,6 +133,18 @@ function buildWordInfos(words) {
   return wordInfos;
 }
 
+/**
+ * Display a spinner while loading.
+ */
+function showSpinner(containerId) {
+  var opts = {
+    position: "relative",
+    className: "spinner",
+  };
+  var target = document.getElementById("vis-" + containerId);
+  new Spinner(opts).spin(target);
+}
+
 function buildLayout(wordInfos, containerId) {
   var fill = d3.scaleOrdinal(d3.schemeCategory20);
 
@@ -148,7 +161,8 @@ function buildLayout(wordInfos, containerId) {
   layout.start();
 
   function draw(words) {
-    d3.select("#vis-" + containerId)
+    var id = "#vis-" + containerId;
+    d3.select(id)
       .append("svg")
         .attr("width", layout.size()[0])
         .attr("height", layout.size()[1])
@@ -165,10 +179,15 @@ function buildLayout(wordInfos, containerId) {
           return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
         })
         .text(function(d) { return d.text; });
+    
+    // Hide the spinner once the layout is displayed.
+    $(id + " > .spinner").hide();
   }
 }
 
 function buildCloud(newsSource, containerId) {
+  showSpinner(containerId);
+  
   $.get(getNewsUri(newsSource), function(response) {
     var results = [];
     $.each(response.data, function() {
