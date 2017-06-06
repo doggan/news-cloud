@@ -2,6 +2,8 @@ var webpack = require("webpack"),
     HtmlWebpackPlugin = require("html-webpack-plugin"),
     path = require("path");
 
+var isProduction = process.env.NODE_ENV === "production";
+
 module.exports = {
   entry: {
     app: "./src/app.js",
@@ -43,6 +45,11 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: __dirname + "/src/index.ejs",
-    })
+    }),
+    new webpack.DefinePlugin({
+      NEWS_API_HOST: isProduction ?
+        JSON.stringify("https://gentle-ridge-44639.herokuapp.com") :
+        JSON.stringify("http://localhost:5000"),
+    }),
   ]
 };

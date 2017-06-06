@@ -26,10 +26,15 @@ if (!String.prototype.format) {
   };
 }
 
+// Construct the URL (this is substituted via webpack config).
+const URL = NEWS_API_HOST + "/api/news";
+
+console.log("News API URL: " + URL);
+
 function getNewsUri(source) {
   let count = source in QUERY_COUNT ? QUERY_COUNT[source] : 10;
-  return "http://localhost:5000/api/news?source={0}&count={1}"
-    .format(source, count);
+  return "{0}?source={1}&count={2}"
+    .format(URL, source, count);
 }
 
 /**
