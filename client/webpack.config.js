@@ -4,7 +4,7 @@ var webpack = require("webpack"),
 
 var isProduction = process.env.NODE_ENV === "production";
 
-module.exports = {
+var config = {
   entry: {
     app: "./src/app.js",
     vendor: [
@@ -15,7 +15,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js"
+    filename: isProduction ? "bundle.min.js" : "bundle.js",
   },
   module: {
     rules: [
@@ -53,3 +53,5 @@ module.exports = {
     }),
   ]
 };
+
+module.exports = config;

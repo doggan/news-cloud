@@ -5,7 +5,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "dist": "NODE_ENV=production webpack",
+    "dist": "NODE_ENV=production webpack -p",
     "dev": "webpack-dev-server --progress --colors --open"
   },
   "keywords": [
