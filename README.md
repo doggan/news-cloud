@@ -7,3 +7,5 @@ Compare news media bias with word clouds.
 - ![#00ff00](https://placehold.it/15/00ff00/000000?text=+) Green words have a positive sentiment.
 
 See it here: https://doggan.github.io/news-cloud/
+
+![News Cloud](https://github.com/doggan/news-cloud/blob/master/screenshot.png?raw=true)
