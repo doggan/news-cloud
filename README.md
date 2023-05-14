@@ -1,6 +1,6 @@
 # News Cloud
 
-Compare news bias with word clouds.
+Compare news media bias with word clouds.
 
 - :arrow_up_down: Word size indicates frequency.
 - ![#ff0000](https://placehold.it/15/ff0000/000000?text=+) Red words have a negative sentiment.
