@@ -20,7 +20,7 @@ var config = {
   module: {
     rules: [
       {
-        test: /\.js/,
+        test: /\.js$/,
         enforce: "pre",
         loader: "eslint-loader",
       },
@@ -31,10 +31,6 @@ var config = {
           "css-loader",
           "sass-loader"
         ]
-      },
-      { 
-        test: /\.json$/, 
-        loader: "json-loader"
       }
     ]
   },
