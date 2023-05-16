@@ -156,6 +156,11 @@ function showSpinner(containerId) {
   new Spinner(opts).spin(target);
 }
 
+function hideSpinner(containerId) {
+  var id = "#vis-" + containerId;
+  $(id + " > .spinner").hide();
+}
+
 function buildLayout(wordInfos, containerId) {
   var fill = d3.scaleOrdinal(d3.schemeCategory20);
 
@@ -192,7 +197,7 @@ function buildLayout(wordInfos, containerId) {
         .text(function(d) { return d.text; });
     
     // Hide the spinner once the layout is displayed.
-    $(id + " > .spinner").hide();
+    hideSpinner(containerId);
   }
 }
 
@@ -206,8 +211,6 @@ function parseResults(response) {
 }
 
 function buildCloud(newsSource, containerId) {
-  showSpinner(containerId);
-
   if (IS_OFFLINE_MODE) {
     // When running in offline mode, read JSON directly.
     var response = require("./data/" + newsSource + ".json");
@@ -239,6 +242,16 @@ const QUERY_COUNT = {
   cnbc: 40,
 };
 
-buildCloud("cnn", "1");
-buildCloud("fox", "2");
-buildCloud("cnbc", "3");
+showSpinner("1");
+showSpinner("2");
+showSpinner("3");
+
+// Hack. Give the page some time to finish it's initial
+// load before we attempt to build the cloud. The rendering of the cloud canvas will
+// lock the rendering thread, so we need to have the spinners enabled before then
+// in order to properly show the loading spinners.
+setTimeout(function(){
+  buildCloud("cnn", "1");
+  buildCloud("fox", "2");
+  buildCloud("cnbc", "3");
+}, 500);
